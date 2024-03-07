@@ -1,4 +1,4 @@
-name: Build & Publish the container image - production
+name: Build
 on:
   workflow_dispatch:
   release:
@@ -42,8 +42,8 @@ jobs:
             linux/arm64
           push: true
           tags: |
-            exordelabs/exorde-transactioneer:${{ github.event.release.tag_name || github.ref }}
-            exordelabs/exorde-transactioneer:latest
+            exordelabs/transactioneer:${{ github.event.release.tag_name || github.ref }}
+            exordelabs/transactioneer:latest
 
       - name: Send a message to slack if CI has succeeded
         if: ${{ success() }}
