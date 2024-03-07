@@ -1,8 +1,5 @@
 name: Build & Publish the container image - production
 
-concurrency:
-  cancel-in-progress: true
-
 on:
   workflow_dispatch:
   release:
