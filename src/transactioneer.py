@@ -244,7 +244,6 @@ def start_transactioneer():
     )
     signal.signal(signal.SIGINT, terminate)
     signal.signal(signal.SIGTERM, terminate)
-
     logging.info(f"Starting server on {port}")
     app.on_startup.append(configuration_init)
     app.on_startup.append(start_background_tasks)
