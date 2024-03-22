@@ -25,8 +25,7 @@ FROM base as transactioneer
 
 WORKDIR /app
 
-RUN pip3.10 install --no-cache-dir \
-        'git+https://github.com/exorde-labs/exorde_data.git@full'
+RUN pip3.10 install --no-cache-dir 'git+https://github.com/exorde-labs/exorde_data.git@full'
 
 ## INSTALL THE APP
 COPY ./src/* /app
