@@ -231,7 +231,7 @@ async def do_claim_master(app):
 
 
 def start_transactioneer():
-    if os.getenv('TRACING'):
+    if os.getenv('TRACE'):
         setup_tracing()
     logging.basicConfig(
         level=logging.DEBUG, 
