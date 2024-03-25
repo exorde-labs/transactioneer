@@ -21,16 +21,16 @@ async def commit_analyzed_batch(processed_batch, app):
             transaction_hash, previous_nonce = await spot_data(
                 cid,
                 item_count,
-                app["static_configuration"]["worker_account"],
+                app["web3_configuration"]["worker_account"],
                 app["live_configuration"],
-                app["static_configuration"]["gas_cache"],
-                app["static_configuration"]["contracts"],
-                app["static_configuration"]["read_web3"],
-                app["static_configuration"]["write_web3"],
-                app["static_configuration"],
+                app["web3_configuration"]["gas_cache"],
+                app["web3_configuration"]["contracts"],
+                app["web3_configuration"]["read_web3"],
+                app["web3_configuration"]["write_web3"],
+                app["web3_configuration"],
             )
             receipt = await get_transaction_receipt(
-                transaction_hash, previous_nonce, app["static_configuration"]
+                transaction_hash, previous_nonce, app["web3_configuration"]
             )
             logging.info("COMMIT OK")
             return transaction_hash, cid

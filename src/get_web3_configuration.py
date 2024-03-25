@@ -67,6 +67,6 @@ async def get_web3_configuration(live_configuration) -> Web3Configuration:
         return web3_configuration
     except:
         logging.exception(
-            "An error occured retrieving static configuration, exiting"
+            "An error occured retrieving web3 configuration, exiting"
         )
         os._exit(1)
