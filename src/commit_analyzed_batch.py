@@ -27,13 +27,14 @@ async def commit_analyzed_batch(processed_batch, app):
                 app["web3_configuration"]["contracts"],
                 app["web3_configuration"]["read_web3"],
                 app["web3_configuration"]["write_web3"],
-                app["web3_configuration"],
+                app["web3_configuration"]
             )
             receipt = await get_transaction_receipt(
                 transaction_hash, previous_nonce, app["web3_configuration"]
             )
             logging.info("COMMIT OK")
-            return transaction_hash, cid
+            return (transaction_hash, cid)
+        return (None, None)
     except Exception as e:
         logging.exception("An error occured while commiting a batch")
         raise e

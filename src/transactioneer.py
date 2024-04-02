@@ -154,19 +154,22 @@ async def create_task(items, app):
         logging.info("===")
     with tracer.start_as_current_span("commit_analyzed_batch") as commit_analyzed_batch_span:
         try:
-            transaction_hash, cid = await commit_analyzed_batch(
+            (transaction_hash, cid) = await commit_analyzed_batch(
                 {"items": items, "kind": "SPOTTING"}, app
             )
-            commit_analyzed_batch_span.set_status(StatusCode.OK)
-            commit_analyzed_batch_span.set_attribute("CID", cid)
-            commit_analyzed_batch_span.set_attribute(
-                "TX", transaction_hash.hex()
-            )
-            receipt_count.inc({})
-            receipt_count_populated.inc(
-                { "CID": cid, "TX": transaction_hash.hex() }
-            )
-            logging.info("COMMIT OK")
+            if cid and transaction_hash:
+                commit_analyzed_batch_span.set_status(StatusCode.OK)
+                commit_analyzed_batch_span.set_attribute("CID", cid)
+                commit_analyzed_batch_span.set_attribute(
+                    "TX", transaction_hash.hex()
+                )
+                receipt_count.inc({})
+                receipt_count_populated.inc(
+                    { "CID": cid, "TX": transaction_hash.hex() }
+                )
+                logging.info("COMMIT OK")
+            else:
+                logging.info("Every item of this batch are already collected")
         except Exception as e:
             logging.info("COMMIT FAILED")
             logging.exception("An Error occured commiting analyzed batch")
@@ -231,7 +234,7 @@ async def do_claim_master(app):
 
 
 def start_transactioneer():
-    if os.getenv('TRACE'):
+    if os.getenv("TRACE", False):
         setup_tracing()
     logging.basicConfig(
         level=logging.DEBUG, 
