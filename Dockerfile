@@ -13,7 +13,7 @@ RUN pip3.10 install --no-cache-dir aioprometheus==23.3.0 \
         aiohttp \
         lxml \
         pyyaml \
-        web3 
+        web3==6.20.0 
 
 RUN pip3.10 install opentelemetry-api \
         opentelemetry-sdk \
