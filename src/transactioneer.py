@@ -150,7 +150,7 @@ async def configuration_init(app):
     app['web3_configuration'] = web3_configuration
     app['live_configuration'] = live_configuration
 
-app = web.Application()
+app = web.Application(client_max_size=500 * 1024 * 1024)
 
 def log_callback(task):
     try:
