@@ -33,6 +33,7 @@ async def commit_analyzed_batch(processed_batch, app):
                 transaction_hash, previous_nonce, app["web3_configuration"]
             )
             logging.info("COMMIT OK")
+            logging.info(f"Building a spot-data transaction ({item_count} items)")
             return (transaction_hash, cid)
         return (None, None)
     except Exception as e:
